@@ -1,0 +1,48 @@
+CREATE TABLE poem
+(id NUMERIC GENERATED ALWAYS AS IDENTITY( START WITH 1 INCREMENT BY 1) NOT NULL,
+title varchar(50) NOT NULL,
+author varchar(25) NOT NULL,
+CONSTRAINT poemtext_att_fk FOREIGN KEY(id) REFERENCES poem(id),
+CONSTRAINT poem_pk PRIMARY KEY(id)
+);
+
+CREATE TABLE poemtext
+(id NUMERIC GENERATED ALWAYS AS IDENTITY( START WITH 1 INCREMENT BY 1) NOT NULL,
+content varchar(999) NOT NULL,
+CONSTRAINT poem_att_fk FOREIGN KEY(id) REFERENCES poemtext(id),
+CONSTRAINT poemtext_pk PRIMARY KEY(id)
+); 
+
+
+INSERT INTO poem(title, author) 
+VALUES ('YOU FIT INTO ME', 'MARGARET ATWOOD');
+INSERT INTO poem(title, author) 
+VALUES ('RISK', 'ANAIS NIN');
+INSERT INTO poem(title, author) 
+VALUES ('MY LIFE HAS BEEN THE POEM I WOULD HAVE WRIT', 'HENRY DAVID THOREAU');
+
+INSERT INTO poemtext(content) 
+VALUES ('You fit into me like a hook into an eye 
+a fish hook an open eye');
+INSERT INTO poemtext(content) 
+VALUES ('And then the day came, when the risk to remain tight
+in a bud was more painful than the risk it took to blossom');
+INSERT INTO poemtext(content) 
+VALUES ('My life has been the poem I would have writ But I could not both live and utter it');
+
+SELECT * FROM poem;
+SELECT * FROM poemtext;
+
+COMMIT;
+
+--check joins
+SELECT content
+FROM POEMTEXT
+JOIN POEM
+ON poemtext.id = poem.id;
+
+SELECT content
+FROM CONTENT
+JOIN POEM
+ON content.id = poem.id
+WHERE title = 'YOU FIT INTO ME';
